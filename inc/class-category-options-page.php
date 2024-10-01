@@ -9,6 +9,8 @@ if ( ! class_exists( 'Category_Options_Page' ) ) {
             add_action( 'admin_menu', [ $this, 'add_options_page_category_set' ] );
             // Hook to register the settings
             add_action( 'admin_init', [ $this, 'register_settings' ] );
+
+			add_action('rest_api_init', [ $this, 'rest_api_category_values' ] );
         }
 
         // Method to get the single instance of the class
@@ -156,8 +158,31 @@ if ( ! class_exists( 'Category_Options_Page' ) ) {
             <input type="number" name="category_limit" value="<?php echo esc_attr( $value ); ?>" min="1" />
             <?php
         }
-    }
 
+		/**
+		 * The function `rest_api_category_values` registers a custom REST route for fetching custom
+		 * settings.
+		 */
+		public function rest_api_category_values() {
+			register_rest_route('custom/v1', '/settings', [
+				'methods' => 'GET',
+				'callback' => [ $this, 'get_custom_settings' ],
+				'permission_callback' => '__return_true',
+			]);
+		}
+
+		public function get_custom_settings() {
+			return [
+				'category_post' => get_option('category_post', ''),
+				'category_date' => get_option('category_date', ''),
+				'category_limit' => get_option('category_limit', 5),
+			];
+		}
+
+    }
     // Instantiate the class using the Singleton pattern
     Category_Options_Page::get_instance();
 }
+
+
+
