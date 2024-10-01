@@ -38,16 +38,27 @@ if ($query->have_posts()) {
 	echo '<div class="post-by-date-block">';
 	echo '<h2>Posts in Category: ' . esc_html(get_cat_name($category)) . '</h2>';
 
+	// Loop through posts
 	while ($query->have_posts()) {
 		$query->the_post();
-?>
+		?>
 		<div class="post-item">
 			<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 			<p><?php the_excerpt(); ?></p>
 			<p><small>Published on: <?php echo get_the_date(); ?></small></p>
 		</div>
-<?php
+		<?php
 	}
+
+	// Check if there are more posts to load
+	if ($query->max_num_pages > 1) {
+		?>
+		<button class="load-more-posts" data-page="1" data-category="<?php echo esc_attr($category); ?>" data-date="<?php echo esc_attr($date); ?>" data-limit="<?php echo esc_attr($limit); ?>">
+        Load More 1
+    	</button>
+		<?php
+	}
+
 	echo '</div>';
 } else {
 	echo '<p>No posts found.</p>';

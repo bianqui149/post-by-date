@@ -183,6 +183,3 @@ if ( ! class_exists( 'Category_Options_Page' ) ) {
     // Instantiate the class using the Singleton pattern
     Category_Options_Page::get_instance();
 }
-
-
-

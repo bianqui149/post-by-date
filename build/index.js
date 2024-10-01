@@ -70,7 +70,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     limit: {
       type: 'number',
-      default: ''
+      default: 5
     }
   },
   edit: props => {
@@ -99,13 +99,10 @@ __webpack_require__.r(__webpack_exports__);
           const defaultOptions = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_5___default()({
             path: '/custom/v1/settings'
           });
-          console.log(defaultOptions);
-
-          // Update only if current attributes are empty
           setAttributes({
             category: category || defaultOptions.category_post,
             date: date || defaultOptions.category_date,
-            limit: limit || defaultOptions.category_limit // Use default of 5 if not set
+            limit: limit || defaultOptions.category_limit
           });
         } catch (error) {
           console.error('Error fetching default options:', error);
@@ -115,51 +112,39 @@ __webpack_require__.r(__webpack_exports__);
     }, []);
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       ...blockProps,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-        className: "row centered",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
-          label: "Select Category",
-          value: category,
-          options: categoryOptions.map(cat => ({
-            label: cat.name,
-            value: cat.id
-          })),
-          onChange: newCategory => setAttributes({
-            category: newCategory
-          })
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
+        label: "Select Category",
+        value: category,
+        options: categoryOptions.map(cat => ({
+          label: cat.name,
+          value: cat.id
+        })),
+        onChange: newCategory => setAttributes({
+          category: newCategory
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "row centered",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "input-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
-            htmlFor: "post-date",
-            children: "Date"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-            type: "date",
-            id: "post-date",
-            value: date,
-            onChange: e => setAttributes({
-              date: e.target.value
-            })
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-          className: "input-group",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.__experimentalNumberControl, {
-            label: "Limit",
-            value: limit,
-            onChange: newLimit => setAttributes({
-              limit: parseInt(newLimit, 10)
-            }),
-            min: 1,
-            max: 100
-          })
-        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+        htmlFor: "post-date",
+        children: "Date"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+        type: "date",
+        id: "post-date",
+        value: date,
+        onChange: e => setAttributes({
+          date: e.target.value
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.__experimentalNumberControl, {
+        label: "Limit",
+        value: limit,
+        onChange: newLimit => setAttributes({
+          limit: parseInt(newLimit, 10)
+        }),
+        min: 1,
+        max: 100
       })]
     });
   },
   save: () => {
-    return null; // Use server-side rendering
+    return null; // Server-side rendering
   }
 });
 

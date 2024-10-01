@@ -5,27 +5,42 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.row {
+ .post-list {
     display: flex;
-    margin-bottom: 16px;
+    flex-direction: column;
+    gap: 20px; // Espacio entre los elementos de la lista
+}
 
-    &.centered {
-        justify-content: center;
-        gap: 16px;
+.post-item {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.post-item h3 {
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+}
+
+.load-more-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007cba;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #005a8e;
     }
 }
 
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 16px;
-}
-
-
-input[type="date"],
-input[type="number"] {
-    width: 100%;
-    max-width: 200px;
+.load-more-button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
 }

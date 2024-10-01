@@ -7,7 +7,7 @@ import { registerBlockType } from '@wordpress/blocks';
 
 import { SelectControl } from '@wordpress/components';
 import { __experimentalNumberControl as NumberControl } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import { useBlockProps } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
@@ -33,27 +33,16 @@ import './style.scss';
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 
-
 registerBlockType('create-block/post-by-date', {
     attributes: {
-        category: {
-            type: 'string',
-            default: '',
-        },
-        date: {
-            type: 'string',
-            default: '',
-        },
-        limit: {
-            type: 'number',
-            default: '',
-        },
+        category: { type: 'string', default: '' },
+        date: { type: 'string', default: '' },
+        limit: { type: 'number', default: 5 },
     },
 
     edit: (props) => {
         const { attributes, setAttributes } = props;
         const { category, date, limit } = attributes;
-
         const blockProps = useBlockProps();
 
         // Fetch categories using getEntityRecords
@@ -66,13 +55,10 @@ registerBlockType('create-block/post-by-date', {
             const fetchDefaultOptions = async () => {
                 try {
                     const defaultOptions = await apiFetch({ path: '/custom/v1/settings' });
-                    console.log(defaultOptions);
-
-                    // Update only if current attributes are empty
                     setAttributes({
                         category: category || defaultOptions.category_post,
                         date: date || defaultOptions.category_date,
-                        limit: limit || defaultOptions.category_limit, // Use default of 5 if not set
+                        limit: limit || defaultOptions.category_limit,
                     });
                 } catch (error) {
                     console.error('Error fetching default options:', error);
@@ -83,48 +69,37 @@ registerBlockType('create-block/post-by-date', {
         }, []);
 
         return (
-			<div {...blockProps}>
-				{/* First row with only the SelectControl */}
-				<div className="row centered">
-					<SelectControl
-						label="Select Category"
-						value={category}
-						options={categoryOptions.map(cat => ({
-							label: cat.name,
-							value: cat.id,
-						}))}
-						onChange={(newCategory) => setAttributes({ category: newCategory })}
-					/>
-				</div>
+            <div {...blockProps}>
+                <SelectControl
+                    label="Select Category"
+                    value={category}
+                    options={categoryOptions.map((cat) => ({
+                        label: cat.name,
+                        value: cat.id,
+                    }))}
+                    onChange={(newCategory) => setAttributes({ category: newCategory })}
+                />
 
-				{/* Second row with Date and NumberControl centered */}
-				<div className="row centered">
-					<div className="input-group">
-						<label htmlFor="post-date">Date</label>
-						<input
-							type="date"
-							id="post-date"
-							value={date}
-							onChange={(e) => setAttributes({ date: e.target.value })}
-						/>
-					</div>
+                <label htmlFor="post-date">Date</label>
+                <input
+                    type="date"
+                    id="post-date"
+                    value={date}
+                    onChange={(e) => setAttributes({ date: e.target.value })}
+                />
 
-					<div className="input-group">
-						<NumberControl
-							label="Limit"
-							value={limit}
-							onChange={(newLimit) => setAttributes({ limit: parseInt(newLimit, 10) })}
-							min={1}
-							max={100}
-						/>
-					</div>
-				</div>
-			</div>
-		);
-
+                <NumberControl
+                    label="Limit"
+                    value={limit}
+                    onChange={(newLimit) => setAttributes({ limit: parseInt(newLimit, 10) })}
+                    min={1}
+                    max={100}
+                />
+            </div>
+        );
     },
 
     save: () => {
-        return null; // Use server-side rendering
+        return null; // Server-side rendering
     },
 });
