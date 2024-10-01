@@ -5,8 +5,27 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-// .wp-block-create-block-post-by-date {
-// 	background-color: #21759b;
-// 	color: #fff;
-// 	padding: 2px;
-// }
+.row {
+    display: flex;
+    margin-bottom: 16px;
+
+    &.centered {
+        justify-content: center;
+        gap: 16px;
+    }
+}
+
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 16px;
+}
+
+
+input[type="date"],
+input[type="number"] {
+    width: 100%;
+    max-width: 200px;
+}

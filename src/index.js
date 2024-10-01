@@ -19,7 +19,7 @@ import apiFetch from '@wordpress/api-fetch';
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-//import './style.scss';
+import './style.scss';
 
 /**
  * Internal dependencies
@@ -83,33 +83,45 @@ registerBlockType('create-block/post-by-date', {
         }, []);
 
         return (
-            <div {...blockProps}>
-                <SelectControl
-                    label="Select Category"
-                    value={category}
-                    options={categoryOptions.map(cat => ({
-                        label: cat.name,
-                        value: cat.id,
-                    }))}
-                    onChange={(newCategory) => setAttributes({ category: newCategory })}
-                />
+			<div {...blockProps}>
+				{/* First row with only the SelectControl */}
+				<div className="row centered">
+					<SelectControl
+						label="Select Category"
+						value={category}
+						options={categoryOptions.map(cat => ({
+							label: cat.name,
+							value: cat.id,
+						}))}
+						onChange={(newCategory) => setAttributes({ category: newCategory })}
+					/>
+				</div>
 
-                <label htmlFor="post-date">Date</label>
-                <input
-                    type="date"
-                    id="post-date"
-                    value={date}
-                    onChange={(e) => setAttributes({ date: e.target.value })}
-                />
-                <NumberControl
-                    label="Limit"
-                    value={limit}
-                    onChange={(newLimit) => setAttributes({ limit: parseInt(newLimit, 10) })}
-                    min={1}
-                    max={100}
-                />
-            </div>
-        );
+				{/* Second row with Date and NumberControl centered */}
+				<div className="row centered">
+					<div className="input-group">
+						<label htmlFor="post-date">Date</label>
+						<input
+							type="date"
+							id="post-date"
+							value={date}
+							onChange={(e) => setAttributes({ date: e.target.value })}
+						/>
+					</div>
+
+					<div className="input-group">
+						<NumberControl
+							label="Limit"
+							value={limit}
+							onChange={(newLimit) => setAttributes({ limit: parseInt(newLimit, 10) })}
+							min={1}
+							max={100}
+						/>
+					</div>
+				</div>
+			</div>
+		);
+
     },
 
     save: () => {
