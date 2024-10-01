@@ -5,22 +5,29 @@
  * Replace them with your own styles or remove the file completely.
  */
 
- .post-list {
+.wp-block-create-block-post-by-date {
+	padding: 5%;
+  	background-color: #953f3f24;
+	opacity: initial !important;
+}
+.post-list {
     display: flex;
     flex-direction: column;
     gap: 20px; // Espacio entre los elementos de la lista
 }
 
 .post-item {
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+	padding: 0px 15px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	margin: 15px;
 }
 
 .post-item h3 {
     margin-bottom: 10px;
-    font-size: 1.25rem;
+    font-size: 2.3rem;
+	margin-top: 1.25rem !important;
 }
 
 .load-more-button {
@@ -43,4 +50,9 @@
 .load-more-button:disabled {
     background-color: #999;
     cursor: not-allowed;
+}
+
+.load-more-posts {
+	font-size: 1.2rem;
+	margin-left: 3%;
 }

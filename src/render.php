@@ -54,7 +54,7 @@ if ($query->have_posts()) {
 	if ($query->max_num_pages > 1) {
 		?>
 		<button class="load-more-posts" data-page="1" data-category="<?php echo esc_attr($category); ?>" data-date="<?php echo esc_attr($date); ?>" data-limit="<?php echo esc_attr($limit); ?>">
-        Load More 1
+        Load More
     	</button>
 		<?php
 	}
