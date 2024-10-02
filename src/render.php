@@ -7,7 +7,6 @@
 $category = isset($attributes['category']) ? intval($attributes['category']) : 0;
 
 if($category){
-
 	$date     = isset($attributes['date']) ? sanitize_text_field($attributes['date']) : '';
 	$limit    = isset($attributes['limit']) ? intval($attributes['limit']) : 5;
 
