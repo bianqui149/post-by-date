@@ -55,6 +55,20 @@ if ( ! class_exists( 'PostByDateBlock' ) ) {
 
 			$new_date = explode('-', $date);
 
+			$currentDate = date('Y-m-d');
+
+			$dateQuery = '';
+			if($date !== $currentDate){
+				$dateQuery = array(
+					'after' =>
+					array(
+						'year'  => $new_date[0],
+						'month' => $new_date[1],
+						'day'   => $date[2],
+					)
+				);
+			}
+
 			// arguments
 			$args = array(
 				'post_type'      => 'post',
@@ -63,15 +77,7 @@ if ( ! class_exists( 'PostByDateBlock' ) ) {
 				'orderby'        => 'date',
 				'order'          => 'DESC',
 				'paged'          => $page + 1,
-				'date_query'     => array(
-					array(
-						'after' => array(
-							'year'  => $new_date[0],
-							'month' => $new_date[1],
-							'day'   => $new_date[2],
-						),
-					),
-				),
+				'date_query'     => $dateQuery,
 			);
 
 			// Execute the post query

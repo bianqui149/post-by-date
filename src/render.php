@@ -12,7 +12,19 @@ if($category){
 
 	$new_date = explode('-', $date);
 
+	$currentDate = date('Y-m-d');
 
+	$dateQuery = '';
+	if($date !== $currentDate){
+		$dateQuery = array(
+			'after' =>
+			array(
+				'year'  => $new_date[0],
+				'month' => $new_date[1],
+				'day'   => $date[2],
+			)
+		);
+	}
 	// Prepare arguments for WP_Query
 	$args = array(
 		'post_type'      => 'post',
@@ -20,15 +32,7 @@ if($category){
 		'category__in'   => $category ? array($category) : array(), //filter by cat
 		'orderby'        => 'date',
 		'order'          => 'DESC', // Order by date
-		'date_query'     => array(
-			'after' =>
-			array(
-				'year'  => $new_date[0],
-				'month' => $new_date[1],
-				'day'   => $date[2],
-			)
-		),
-
+		'date_query'     => $dateQuery,
 	);
 
 	//new inst WP_Query
