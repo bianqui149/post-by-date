@@ -7,16 +7,19 @@
 
 .wp-block-create-block-post-by-date {
 	padding: 5%;
-  	background-color: #953f3f24;
+	background-color: #953f3f24;
 	opacity: initial !important;
-	> .post-by-date-block{
 
-		> .post-item{
-			> h3{
+	> .post-by-date-block {
+
+		> .post-item {
+
+			> h3 {
 				margin-bottom: 10px;
 				font-size: 1.3rem;
 				margin-top: 1.25rem !important;
 			}
+
 			> p {
 				font-size: 1rem;
 			}
@@ -30,45 +33,48 @@
 }
 
 .post-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; // Espacio entre los elementos de la lista
+	display: flex;
+	flex-direction: column;
+	gap: 20px; // Espacio entre los elementos de la lista
 }
 
 .post-item {
-	padding: 0px 15px;
+	padding: 0 15px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	background-color: #f9f9f9;
 	margin: 15px;
 }
 
-.post-item h3 {
-    margin-bottom: 10px;
-    font-size: 2.3rem;
-	margin-top: 1.25rem !important;
+.post-item {
+
+	> h3 {
+		margin-bottom: 10px;
+		font-size: 2.3rem;
+		margin-top: 1.25rem !important;
+	}
 }
 
 .load-more-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #007cba;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+	display: block;
+	margin: 20px auto;
+	padding: 10px 20px;
+	font-size: 1rem;
+	color: #fff;
+	background-color: #007cba;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 
-    &:hover {
-        background-color: #005a8e;
-    }
+	&:hover {
+		background-color: #005a8e;
+	}
 }
 
 .load-more-button:disabled {
-    background-color: #999;
-    cursor: not-allowed;
+	background-color: #999;
+	cursor: not-allowed;
 }
 
 .load-more-posts {
