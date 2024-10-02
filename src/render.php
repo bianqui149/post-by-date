@@ -5,25 +5,25 @@
  */
 
 $category = isset($attributes['category']) ? intval($attributes['category']) : 0;
-$date = isset($attributes['date']) ? sanitize_text_field($attributes['date']) : '';
-$limit = isset($attributes['limit']) ? intval($attributes['limit']) : 5;
+$date     = isset($attributes['date']) ? sanitize_text_field($attributes['date']) : '';
+$limit    = isset($attributes['limit']) ? intval($attributes['limit']) : 5;
 
 $new_date = explode('-', $date);
 
 
 // Prepare arguments for WP_Query
 $args = array(
-	'post_type' => 'post',
+	'post_type'      => 'post',
 	'posts_per_page' => $limit,
-	'category__in' => $category ? array($category) : array(), //filter by cat
-	'orderby' => 'date',
-	'order' => 'DESC', // Order by date
-	'date_query' => array(
+	'category__in'   => $category ? array($category) : array(), //filter by cat
+	'orderby'        => 'date',
+	'order'          => 'DESC', // Order by date
+	'date_query'     => array(
 		'after' =>
 		array(
-			'year' => $new_date[0],
+			'year'  => $new_date[0],
 			'month' => $new_date[1],
-			'day' => $date[2],
+			'day'   => $date[2],
 		)
 	),
 

@@ -94,7 +94,7 @@ if ( ! class_exists( 'Category_Options_Page' ) ) {
 
         // Sanitization callback for 'category_post'
         public function sanitize_category_post( $input ) {
-            $categories = get_categories( array( 'hide_empty' => false ) );
+            $categories   = get_categories( array( 'hide_empty' => false ) );
             $category_ids = wp_list_pluck( $categories, 'term_id' );
 
             // Check if the selected category ID is valid
@@ -126,7 +126,7 @@ if ( ! class_exists( 'Category_Options_Page' ) ) {
         // Callback
         public function category_post_field() {
             $selected_category = get_option( 'category_post', '' );
-            $categories = get_categories( array( 'hide_empty' => false ) );
+            $categories        = get_categories( array( 'hide_empty' => false ) );
             ?>
             <select name="category_post">
                 <option value="">Select a category</option>
@@ -165,16 +165,16 @@ if ( ! class_exists( 'Category_Options_Page' ) ) {
 		 */
 		public function rest_api_category_values() {
 			register_rest_route('custom/v1', '/settings', [
-				'methods' => 'GET',
-				'callback' => [ $this, 'get_custom_settings' ],
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'get_custom_settings' ],
 				'permission_callback' => '__return_true',
 			]);
 		}
 
 		public function get_custom_settings() {
 			return [
-				'category_post' => get_option('category_post', ''),
-				'category_date' => get_option('category_date', ''),
+				'category_post'  => get_option('category_post', ''),
+				'category_date'  => get_option('category_date', ''),
 				'category_limit' => get_option('category_limit', 5),
 			];
 		}

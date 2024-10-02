@@ -48,10 +48,10 @@ if ( ! class_exists( 'PostByDateBlock' ) ) {
 		// Handle the AJAX request for loading more posts
 		public function load_more_posts_ajax_handler() {
 			// Get the request data
-			$page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+			$page     = isset($_POST['page']) ? intval($_POST['page']) : 1;
 			$category = isset($_POST['category']) ? intval($_POST['category']) : 0;
-			$date = isset($_POST['date']) ? sanitize_text_field($_POST['date']) : '';
-			$limit = isset($_POST['limit']) ? intval($_POST['limit']) : 5;
+			$date     = isset($_POST['date']) ? sanitize_text_field($_POST['date']) : '';
+			$limit    = isset($_POST['limit']) ? intval($_POST['limit']) : 5;
 
 			$new_date = explode('-', $date);
 
