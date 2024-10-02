@@ -10,7 +10,7 @@ if ( ! class_exists( 'Category_Options_Page' ) ) {
             // Hook to register the settings
             add_action( 'admin_init', [ $this, 'register_settings' ] );
 
-			add_action('rest_api_init', [ $this, 'rest_api_category_values' ] );
+            add_action('rest_api_init', [ $this, 'rest_api_category_values' ] );
         }
 
         // Method to get the single instance of the class
