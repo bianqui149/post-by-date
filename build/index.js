@@ -91,7 +91,7 @@ __webpack_require__.r(__webpack_exports__);
         hide_empty: false
       }) || [];
     }, []);
-
+    console.log(categoryOptions);
     // Fetch default values from the options page
     (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
       const fetchDefaultOptions = async () => {
@@ -115,10 +115,13 @@ __webpack_require__.r(__webpack_exports__);
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
         label: "Select Category",
         value: category,
-        options: categoryOptions.map(cat => ({
+        options: [{
+          label: 'Select Option',
+          value: ''
+        }, ...categoryOptions.map(cat => ({
           label: cat.name,
           value: cat.id
-        })),
+        }))],
         onChange: newCategory => setAttributes({
           category: newCategory
         })

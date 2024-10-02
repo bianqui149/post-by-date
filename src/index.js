@@ -49,7 +49,7 @@ registerBlockType('create-block/post-by-date', {
         const categoryOptions = useSelect((select) => {
             return select('core').getEntityRecords('taxonomy', 'category', { hide_empty: false }) || [];
         }, []);
-
+		console.log(categoryOptions);
         // Fetch default values from the options page
         useEffect(() => {
             const fetchDefaultOptions = async () => {
@@ -74,10 +74,13 @@ registerBlockType('create-block/post-by-date', {
                 <SelectControl
                     label="Select Category"
                     value={category}
-                    options={categoryOptions.map((cat) => ({
-                        label: cat.name,
-                        value: cat.id,
-                    }))}
+                    options={[
+						{ label: 'Select Option', value: '' },
+						...categoryOptions.map((cat) => ({
+							label: cat.name,
+							value: cat.id,
+						})),
+					]}
                     onChange={(newCategory) => setAttributes({ category: newCategory })}
                 />
 
