@@ -33,110 +33,135 @@ import './style.scss';
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 
-registerBlockType('create-block/post-by-date', {
-    attributes: {
-        category: { type: 'string', default: '' },
-        date: { type: 'string', default: '' },
-        limit: { type: 'number', default: 5 },
-    },
+registerBlockType( 'create-block/post-by-date', {
+	attributes: {
+		category: { type: 'string', default: '' },
+		date: { type: 'string', default: '' },
+		limit: { type: 'number', default: 5 },
+	},
 
-    edit: (props) => {
-        const { attributes, setAttributes } = props;
-        const { category, date, limit } = attributes;
-        const blockProps = useBlockProps();
+	edit: ( props ) => {
+		const { attributes, setAttributes } = props;
+		const { category, date, limit } = attributes;
+		const blockProps = useBlockProps();
 
-        // Fetch categories using getEntityRecords
-        const categoryOptions = useSelect((select) => {
-            return select('core').getEntityRecords('taxonomy', 'category', { hide_empty: false }) || [];
-        }, []);
+		// Fetch categories using getEntityRecords
+		const categoryOptions = useSelect( ( select ) => {
+			return (
+				select( 'core' ).getEntityRecords( 'taxonomy', 'category', {
+					hide_empty: false,
+				} ) || []
+			);
+		}, [] );
 
-        // Fetch default values from the options page
-        useEffect(() => {
-            const fetchDefaultOptions = async () => {
-                try {
-                    const defaultOptions = await apiFetch({ path: '/custom/v1/settings' });
-                    setAttributes({
-                        category: category || defaultOptions.category_post,
-                        date: date || defaultOptions.category_date,
-                        limit: limit || defaultOptions.category_limit,
-                    });
-                } catch (error) {
-                    console.error('Error fetching default options:', error);
-                }
-            };
+		// Fetch default values from the options page
+		useEffect( () => {
+			const fetchDefaultOptions = async () => {
+				try {
+					const defaultOptions = await apiFetch( {
+						path: '/custom/v1/settings',
+					} );
+					setAttributes( {
+						category: category || defaultOptions.category_post,
+						date: date || defaultOptions.category_date,
+						limit: limit || defaultOptions.category_limit,
+					} );
+				} catch ( error ) {
+					console.error( 'Error fetching default options:', error );
+				}
+			};
 
-            fetchDefaultOptions();
-        }, []);
+			fetchDefaultOptions();
+		}, [] );
 
 		// Fetch posts
-        const posts = useSelect((select) => {
-            const query = {
-                per_page: limit,
-                categories: category,
-                before: date ? new Date(date).toISOString() : undefined,
-            };
-            return select('core').getEntityRecords('postType', 'post', query) || [];
-        }, [category, date, limit]);
+		const posts = useSelect(
+			( select ) => {
+				const query = {
+					per_page: limit,
+					categories: category,
+					before: date ? new Date( date ).toISOString() : undefined,
+				};
+				return (
+					select( 'core' ).getEntityRecords(
+						'postType',
+						'post',
+						query
+					) || []
+				);
+			},
+			[ category, date, limit ]
+		);
 
 		// Function to remove HTML tags
-		function stripTags(html) {
-			const div = document.createElement('div');
+		function stripTags( html ) {
+			const div = document.createElement( 'div' );
 			div.innerHTML = html;
 			return div.textContent || div.innerText || '';
 		}
 
-        return (
-            <div {...blockProps}>
-
-                <SelectControl
-                    label="Select Category"
-                    value={category}
-                    options={[
+		return (
+			<div { ...blockProps }>
+				<SelectControl
+					label="Select Category"
+					value={ category }
+					options={ [
 						{ label: 'Select Option', value: '' },
-						...categoryOptions.map((cat) => ({
+						...categoryOptions.map( ( cat ) => ( {
 							label: cat.name,
 							value: cat.id,
-						})),
-					]}
-                    onChange={(newCategory) => setAttributes({ category: newCategory })}
-                />
+						} ) ),
+					] }
+					onChange={ ( newCategory ) =>
+						setAttributes( { category: newCategory } )
+					}
+				/>
 
 				<label htmlFor="post-date">Date</label>
 				<input
 					type="date"
 					id="post-date"
-					value={date}
-					onChange={(e) => setAttributes({ date: e.target.value })}
+					value={ date }
+					onChange={ ( e ) =>
+						setAttributes( { date: e.target.value } )
+					}
 				/>
 
 				<NumberControl
 					label="Limit"
-					value={limit}
-					onChange={(newLimit) => setAttributes({ limit: parseInt(newLimit, 10) })}
-					min={1}
-					max={100}
+					value={ limit }
+					onChange={ ( newLimit ) =>
+						setAttributes( { limit: parseInt( newLimit, 10 ) } )
+					}
+					min={ 1 }
+					max={ 100 }
 				/>
 
-				{/* Render posts in the editor */}
+				{ /* Render posts in the editor */ }
 
-				{posts.length > 0 ? (
-                    <div className="post-by-date-block">
-                        {posts.map((post) => (
-                            <div className="post-item" key={post.id}>
-                                <h3>{post.title.rendered}</h3>
-								<p>{stripTags(post.excerpt.rendered)}</p>
-								<p><small>Published on: {post.date.substring(0, 10)}</small></p>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p>No posts found.</p>
-                )}
-            </div>
-        );
-    },
+				{ posts.length > 0 ? (
+					<div className="post-by-date-block">
+						{ posts.map( ( post ) => (
+							<div className="post-item" key={ post.id }>
+								<h3>{ post.title.rendered }</h3>
+								<p>{ stripTags( post.excerpt.rendered ) }</p>
+								<p>
+									<small>
+										Published on:{ ' ' }
+										{ post.date.substring( 0, 10 ) }
+									</small>
+								</p>
+							</div>
+						) ) }
+					</div>
+				) : (
+					<p>No posts found.</p>
+				) }
+			</div>
+		);
+	},
 
-    save: () => {
-        return null; // Server-side rendering
-    },
-});
+	save: () => {
+		return null; // Server-side rendering
+	},
+} );
