@@ -70,6 +70,7 @@ registerBlockType('create-block/post-by-date', {
 
         return (
             <div {...blockProps}>
+
                 <SelectControl
                     label="Select Category"
                     value={category}
@@ -80,21 +81,23 @@ registerBlockType('create-block/post-by-date', {
                     onChange={(newCategory) => setAttributes({ category: newCategory })}
                 />
 
-                <label htmlFor="post-date">Date</label>
-                <input
-                    type="date"
-                    id="post-date"
-                    value={date}
-                    onChange={(e) => setAttributes({ date: e.target.value })}
-                />
+				<label htmlFor="post-date">Date</label>
+				<input
+					type="date"
+					id="post-date"
+					value={date}
+					onChange={(e) => setAttributes({ date: e.target.value })}
+				/>
 
-                <NumberControl
-                    label="Limit"
-                    value={limit}
-                    onChange={(newLimit) => setAttributes({ limit: parseInt(newLimit, 10) })}
-                    min={1}
-                    max={100}
-                />
+				<NumberControl
+					label="Limit"
+					value={limit}
+					onChange={(newLimit) => setAttributes({ limit: parseInt(newLimit, 10) })}
+					min={1}
+					max={100}
+				/>
+
+
             </div>
         );
     },
