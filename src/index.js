@@ -49,7 +49,7 @@ registerBlockType('create-block/post-by-date', {
         const categoryOptions = useSelect((select) => {
             return select('core').getEntityRecords('taxonomy', 'category', { hide_empty: false }) || [];
         }, []);
-		console.log(categoryOptions);
+
         // Fetch default values from the options page
         useEffect(() => {
             const fetchDefaultOptions = async () => {

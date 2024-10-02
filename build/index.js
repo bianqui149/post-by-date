@@ -91,7 +91,7 @@ __webpack_require__.r(__webpack_exports__);
         hide_empty: false
       }) || [];
     }, []);
-    console.log(categoryOptions);
+
     // Fetch default values from the options page
     (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
       const fetchDefaultOptions = async () => {
