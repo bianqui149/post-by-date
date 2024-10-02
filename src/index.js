@@ -68,6 +68,23 @@ registerBlockType('create-block/post-by-date', {
             fetchDefaultOptions();
         }, []);
 
+		// Fetch posts
+        const posts = useSelect((select) => {
+            const query = {
+                per_page: limit,
+                categories: category,
+                before: date ? new Date(date).toISOString() : undefined,
+            };
+            return select('core').getEntityRecords('postType', 'post', query) || [];
+        }, [category, date, limit]);
+
+		// Function to remove HTML tags
+		function stripTags(html) {
+			const div = document.createElement('div');
+			div.innerHTML = html;
+			return div.textContent || div.innerText || '';
+		}
+
         return (
             <div {...blockProps}>
 
@@ -100,7 +117,21 @@ registerBlockType('create-block/post-by-date', {
 					max={100}
 				/>
 
+				{/* Render posts in the editor */}
 
+				{posts.length > 0 ? (
+                    <div className="post-by-date-block">
+                        {posts.map((post) => (
+                            <div className="post-item" key={post.id}>
+                                <h3>{post.title.rendered}</h3>
+								<p>{stripTags(post.excerpt.rendered)}</p>
+								<p><small>Published on: {post.date.substring(0, 10)}</small></p>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p>No posts found.</p>
+                )}
             </div>
         );
     },
