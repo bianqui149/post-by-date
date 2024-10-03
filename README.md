@@ -3,6 +3,15 @@
 ## Description
 Post By Date is a WordPress plugin that allows you to display posts based on a selected date and category. It provides a user-friendly interface for managing post visibility.
 
+## Set the default settings for the category
+
+As a user, go to settings tab and click "Category Options" sub tab:
+
+1. Select the category.
+2. Set the date.
+3. Set the limit.
+4. Save the options.
+
 ## How to Find the Post By Date Block
 
 As a user, you can easily find the "Post By Date" block while editing your posts or pages in WordPress. Follow these steps:
