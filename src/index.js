@@ -37,7 +37,7 @@ registerBlockType( 'create-block/post-by-date', {
 	attributes: {
 		category: { type: 'string', default: '' },
 		date: { type: 'string', default: '' },
-		limit: { type: 'number', default: 5 },
+		limit: { type: 'number', default: '' },
 	},
 
 	edit: ( props ) => {
@@ -129,7 +129,7 @@ registerBlockType( 'create-block/post-by-date', {
 
 				<NumberControl
 					label="Limit"
-					value={ limit }
+					value={ limit ? limit : 5}
 					onChange={ ( newLimit ) =>
 						setAttributes( { limit: parseInt( newLimit, 10 ) } )
 					}

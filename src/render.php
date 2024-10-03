@@ -25,6 +25,7 @@ if($category){
 			)
 		);
 	}
+
 	// Prepare arguments for WP_Query
 	$args = array(
 		'post_type'      => 'post',
